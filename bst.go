@@ -1,10 +1,19 @@
 package main
 
+import "fmt"
+
 type Node struct {
 	key   int
 	left  *Node
 	right *Node
 	value interface{}
+}
+
+func (n *Node) isLeaf() bool {
+	if n.left == nil && n.right == nil {
+		return true
+	}
+	return false
 }
 
 type BST struct {
@@ -82,4 +91,58 @@ func (t *BST) inOrderDo(node *Node, f func(n *Node)) {
 		f(node)
 		t.inOrderDo(node.right, f)
 	}
+}
+
+func (t *BST) Delete(key int) {
+	t.root = t.deleteNode(t.root, key)
+}
+
+func (t *BST) deleteNode(root *Node, key int) *Node {
+	if root == nil {
+		return root
+	}
+
+	switch {
+	case key < root.key:
+		root.left = t.deleteNode(root.left, key)
+	case key > root.key:
+		root.right = t.deleteNode(root.right, key)
+	default:
+		// root is leaf
+		if root.left == nil && root.right == nil {
+			return nil // current node will be NILed in parent
+		}
+
+		// root have 1 child
+		if root.left == nil {
+			return root.right
+		}
+		if root.right == nil {
+			return root.left
+		}
+
+		// root have two child
+		if root.key == 150 {
+			fmt.Println("dilemma here")
+		}
+		minValue := t.lessThanNode(root)
+		root.key, root.value = minValue.key, minValue.value
+		root.left = t.deleteNode(root.left, root.key) // replace new root from child
+	}
+	return root
+}
+
+// minValueNode return the node  with minum key value found in that tree.
+func (t *BST) lessThanNode(node *Node) *Node {
+	current := node
+	if current == nil {
+		return nil
+	}
+
+	for current.left != nil {
+		current = current.left
+	}
+
+	fmt.Println(current)
+	return current
 }
