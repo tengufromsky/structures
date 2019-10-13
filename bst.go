@@ -70,16 +70,16 @@ func (t *BST) insertNode(node *Node, key int, value interface{}) {
 	}
 }
 
+func (t *BST) InOrderDo(f func(n *Node)) {
+	if t.root != nil {
+		t.inOrderDo(t.root, f)
+	}
+}
+
 func (t *BST) inOrderDo(node *Node, f func(n *Node)) {
 	if node != nil {
 		t.inOrderDo(node.left, f)
 		f(node)
 		t.inOrderDo(node.right, f)
-	}
-}
-
-func (t *BST) InOrderDo(f func(n *Node)) {
-	if t.root != nil {
-		t.inOrderDo(t.root, f)
 	}
 }

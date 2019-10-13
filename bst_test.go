@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestNodeBST_DoRange(t *testing.T) {
+func TestBST_InOrderDo(t *testing.T) {
 	var bst BST
 	src := []int{1, 10, 30, 100, 200, 300}
 	for _, k := range src {
