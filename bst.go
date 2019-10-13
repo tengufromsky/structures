@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 type Node struct {
 	key   int
 	left  *Node
@@ -122,12 +120,9 @@ func (t *BST) deleteNode(root *Node, key int) *Node {
 		}
 
 		// root have two child
-		if root.key == 150 {
-			fmt.Println("dilemma here")
-		}
 		minValue := t.lessThanNode(root)
 		root.key, root.value = minValue.key, minValue.value
-		root.left = t.deleteNode(root.left, root.key) // replace new root from child
+		root.left = t.deleteNode(root.left, minValue.key) // replace new root from child
 	}
 	return root
 }
@@ -143,6 +138,5 @@ func (t *BST) lessThanNode(node *Node) *Node {
 		current = current.left
 	}
 
-	fmt.Println(current)
 	return current
 }

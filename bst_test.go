@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -56,7 +55,6 @@ func TestBST_Delete(t *testing.T) {
 			rangedElems = append(rangedElems, n.key)
 		})
 
-		fmt.Println(rangedElems)
 		if !isIntSlicesEqual([]int{1, 100, 125, 165}, rangedElems) {
 			t.Error("slices don't equal")
 		}
